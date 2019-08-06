@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
+  
   def index
   	@tasks = Task.recent
   end
@@ -23,13 +24,13 @@ class TasksController < ApplicationController
 
 
   def update
-  	task.update!(task_params)
-  	redirect_to tasks_url, notice: "タスク「#{task.name}」を更新しました"
+  	@task.update!(task_params)
+  	redirect_to tasks_url, notice: "タスク「#{@task.name}」を更新しました"
   end
 
   def destroy
-    task.destroy
-    redirect_to tasks_url, notice: "タスク「#{task.name}を削除しました」"
+    @task.destroy
+    redirect_to tasks_url, notice: "タスク「#{@task.name}を削除しました」"
   end
 
   private
