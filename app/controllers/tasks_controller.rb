@@ -1,6 +1,10 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 52deb249321d5d7acb25ee2654d3d262da00ddeb
   def index
   	@tasks = Task.recent
   end
