@@ -9,9 +9,18 @@ class TasksController < ApplicationController
   	@task = Task.new
   end
 
+  def confirm_new
+    @task = current_user.tasks.build(task_params)
+    render "new" if @task.invalid?
+  end
+
   def create
   	@task = current_user.tasks.build(task_params)
-  	if @task.save
+  	if params[:back]
+      render "new"
+      return
+    end
+    if @task.save
   	  redirect_to tasks_url, notice: "タスク「#{@task.name}」を登録しました"
     else
       render "new"
