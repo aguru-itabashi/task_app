@@ -1,8 +1,9 @@
 class Task < ApplicationRecord
+	include CommonModule
 	validates :name, presence: true
 	validates :name, length: {maximum:30}
 	validate :validate_name_not_including_comma
-	before_validation :set_nameless_name
+	# before_validation :set_nameless_name
 
 	belongs_to :user
 
@@ -14,7 +15,7 @@ class Task < ApplicationRecord
 		errors.add(:name, "にカンマを含めることはできません") if name&.include?(",")
 	end
 
-	def set_nameless_name
-		self.name = "名前無し" if name.blank?
-	end
+	# def set_nameless_name
+	# 	self.name = "名前無し" if name.blank?
+	# end
 end

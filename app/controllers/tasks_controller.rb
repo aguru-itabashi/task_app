@@ -1,12 +1,8 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
-<<<<<<< HEAD
 
-=======
-  
->>>>>>> 52deb249321d5d7acb25ee2654d3d262da00ddeb
   def index
-  	@tasks = Task.recent
+  	@tasks = current_user.tasks.recent
   end
 
   def new
@@ -14,9 +10,9 @@ class TasksController < ApplicationController
   end
 
   def create
-  	task = current_user.tasks.new(task_params)
-  	if task.save!
-  	  redirect_to tasks_url, notice: "タスク「#{task.name}」を登録しました"
+  	@task = current_user.tasks.build(task_params)
+  	if @task.save
+  	  redirect_to tasks_url, notice: "タスク「#{@task.name}」を登録しました"
     else
       render "new"
     end
@@ -28,7 +24,7 @@ class TasksController < ApplicationController
 
 
   def update
-  	@task.update!(task_params)
+  	@task.update(task_params)
   	redirect_to tasks_url, notice: "タスク「#{@task.name}」を更新しました"
   end
 
