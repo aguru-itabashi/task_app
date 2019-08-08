@@ -16,6 +16,7 @@ gem "slim-rails"
 gem "html2slim"
 gem 'bootstrap'
 gem 'bcrypt'
+gem "ransack"
 
 gem "rails_autolink"
 
@@ -25,6 +26,9 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "launchy"
   gem 'spring-commands-rspec'
+  gem 'pry-rails'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :development do

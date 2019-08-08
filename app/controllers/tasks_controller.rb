@@ -2,7 +2,10 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
-  	@tasks = current_user.tasks.recent
+    @q = current_user.tasks.ransack(params[:q])
+    #distinct: trueで重複を避ける
+    # @tasks = @q.result(distinct: true).recent
+    @tasks = @q.result(distinct: true)
   end
 
   def new
@@ -15,13 +18,14 @@ class TasksController < ApplicationController
   end
 
   def create
-  	@task = current_user.tasks.build(task_params)
-  	if params[:back]
+    @task = current_user.tasks.build(task_params)
+    if params[:back]
       render "new"
       return
     end
     if @task.save
-  	  redirect_to tasks_url, notice: "タスク「#{@task.name}」を登録しました"
+      TaskMailer.creation_email(@task).deliver_now
+      redirect_to tasks_url, notice: "タスク「#{@task.name}」を登録しました"
     else
       render "new"
     end
