@@ -19,6 +19,8 @@ gem 'bcrypt'
 gem "ransack"
 
 gem "rails_autolink"
+gem "kaminari"
+gem "sidekiq"
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
